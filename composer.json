@@ -1,0 +1,49 @@
+{
+    "name": "sweetchuck/robo-stringy",
+    "description": "Template to create a new Robo task.",
+    "license": "GPL-2.0-or-later",
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.1",
+        "consolidation/robo": "^1.2",
+        "danielstjules/stringy": "^3.1"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.2",
+        "sweetchuck/codeception-module-robo-task-runner": "^0.4.0",
+        "sweetchuck/git-hooks": "^0.0",
+        "sweetchuck/robo-git": "^0.0",
+        "sweetchuck/robo-phpcs": "^0.0",
+        "symfony/finder": "^3.2 || ^4.0",
+        "symfony/yaml": "^3.2 || ^4.0",
+        "webmozart/path-util": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sweetchuck\\Robo\\Stringy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sweetchuck\\Robo\\Stringy\\Composer\\": "src-dev/Composer/",
+            "Sweetchuck\\Robo\\Stringy\\Test\\Helper\\": "tests/_support/Helper/",
+            "Sweetchuck\\Robo\\Stringy\\Tests\\Acceptance\\": "tests/acceptance/",
+            "Sweetchuck\\Robo\\Stringy\\Tests\\Unit\\": "tests/unit/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "\\Sweetchuck\\Robo\\Stringy\\Composer\\Scripts::postInstallCmd"
+        ],
+        "post-update-cmd": [
+            "\\Sweetchuck\\Robo\\Stringy\\Composer\\Scripts::postUpdateCmd"
+        ]
+    }
+}

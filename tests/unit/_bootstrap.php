@@ -1,0 +1,3 @@
+<?php
+
+\Robo\Robo::createDefaultContainer();
