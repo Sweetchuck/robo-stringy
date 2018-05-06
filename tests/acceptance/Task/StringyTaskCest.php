@@ -16,7 +16,7 @@ class StringyTaskCest
         $stdError = $tester->getRoboTaskStdError($id);
 
         $tester->assertSame(0, $exitCode);
-        $tester->assertSame('stringy.result: FOObar' . PHP_EOL, $stdOutput);
+        $tester->assertSame('stringy: FOObar' . PHP_EOL, $stdOutput);
         $tester->assertSame(' [Stringy] swapCase' . PHP_EOL, $stdError);
     }
 }

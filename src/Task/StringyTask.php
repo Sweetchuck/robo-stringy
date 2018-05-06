@@ -5,6 +5,7 @@ namespace Sweetchuck\Robo\Stringy\Task;
 use Robo\Result;
 use Robo\Task\BaseTask as RoboBaseTask;
 use Robo\TaskInfo;
+use Stringy\StaticStringy;
 use Stringy\Stringy;
 
 /**
@@ -161,10 +162,12 @@ class StringyTask extends RoboBaseTask
                 ->substr(4)
                 ->lowerCaseFirst();
 
+            $this->assertStringyMethod($method, (string) $method);
+
             return $this->call((string) $method, $arguments);
         }
 
-        throw new \BadMethodCallException('@todo');
+        throw new \BadMethodCallException("Method '$name' does not exists", 1);
     }
 
     /**
@@ -248,24 +251,27 @@ class StringyTask extends RoboBaseTask
      */
     protected function runDoIt()
     {
+        $assetNameBase = $this->getAssetNameBase();
         $stringy = new Stringy($this->getString());
         foreach ($this->queue as $item) {
-            if (!($stringy instanceof Stringy)) {
-                throw new \Exception('@todo');
-            }
+            $this->assertStringyMethod($stringy, $item['method']);
 
-            if (!is_callable([$stringy, $item['method']])) {
-                throw  new \Exception("Method '{$item['method']}' is not callable");
+            $result = $stringy->{$item['method']}(...$item['args']);
+            $resultIsStringy = $result instanceof Stringy;
+            if (!$resultIsStringy && !isset($item['assetName'])) {
+                $item['assetName'] = "{$assetNameBase}.{$item['method']}";
             }
-
-            $stringy = $stringy->{$item['method']}(...$item['args']);
 
             if (isset($item['assetName'])) {
-                $this->addToAssets($item['assetName'], $stringy);
+                $this->addToAssets($item['assetName'], $result);
+            }
+
+            if ($resultIsStringy) {
+                $stringy = $result;
             }
         }
 
-        $this->addToAssets('stringy.result', $stringy);
+        $this->addToAssets($assetNameBase, $stringy);
 
         return $this;
     }
@@ -330,6 +336,11 @@ class StringyTask extends RoboBaseTask
         return parent::getTaskContext($context);
     }
 
+    protected function getAssetNameBase(): string
+    {
+        return StaticStringy::camelize($this->getTaskName());
+    }
+
     /**
      * @return string[]
      */
@@ -341,5 +352,15 @@ class StringyTask extends RoboBaseTask
         }
 
         return $methods;
+    }
+
+    protected function assertStringyMethod(Stringy $stringy, string $method): void
+    {
+        if (!is_callable([$stringy, $method])) {
+            throw  new \BadMethodCallException(
+                "Stringy has no callable method: '{$method}'",
+                1
+            );
+        }
     }
 }
