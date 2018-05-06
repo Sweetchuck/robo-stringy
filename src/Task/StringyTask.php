@@ -249,21 +249,18 @@ class StringyTask extends RoboBaseTask
     protected function runDoIt()
     {
         $stringy = new Stringy($this->getString());
-        $numOfRemainingQueueItems = count($this->queue);
         foreach ($this->queue as $item) {
+            if (!($stringy instanceof Stringy)) {
+                throw new \Exception('@todo');
+            }
+
             if (!is_callable([$stringy, $item['method']])) {
                 throw  new \Exception("Method '{$item['method']}' is not callable");
             }
 
             $stringy = $stringy->{$item['method']}(...$item['args']);
 
-            $numOfRemainingQueueItems--;
-            $isStringy = $stringy instanceof Stringy;
-            if (!$isStringy && $numOfRemainingQueueItems) {
-                throw new \Exception('@todo');
-            }
-
-            if (!empty($item['assetName'])) {
+            if (isset($item['assetName'])) {
                 $this->addToAssets($item['assetName'], $stringy);
             }
         }
@@ -273,6 +270,9 @@ class StringyTask extends RoboBaseTask
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function addToAssets(string $name, $stringy)
     {
         $this->assets[$name] = $stringy instanceof Stringy ? (string) $stringy : $stringy;
