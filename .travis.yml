@@ -12,6 +12,12 @@ matrix:
             sudo: false
             language: 'php'
             php: '7.1'
+        -
+            os: 'linux'
+            dist: 'trusty'
+            sudo: false
+            language: 'php'
+            php: '7.2'
 
 before_install:
     - 'export COMPOSER_NO_INTERACTION=1'
