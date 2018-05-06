@@ -19,7 +19,9 @@ class StringyTaskTest extends Unit
                 [
                     'assets' => [
                         'my.camelCase' => 'fooBarBaz',
-                        'my.stringy.result' => 9,
+                        'my.stringy.length' => 9,
+                        'my.stringy.isUpperCase' => false,
+                        'my.stringy' => 'prefix.fooBarBaz',
                     ],
                 ],
                 [
@@ -32,13 +34,18 @@ class StringyTaskTest extends Unit
                             'assetName' => 'camelCase',
                         ],
                         'length',
+                        'isUpperCase',
+                        [
+                            'method' => 'prepend',
+                            'args' => ['prefix.'],
+                        ],
                     ],
                 ],
             ],
             'git commit-msg filter' => [
                 [
                     'assets' => [
-                        'stringy.result' => implode(PHP_EOL, [
+                        'stringy' => implode(PHP_EOL, [
                             'Subject',
                             '',
                             'Long',
@@ -93,7 +100,7 @@ class StringyTaskTest extends Unit
         }
     }
 
-    public function testMagickMethodCall(): void
+    public function testMagickMethodCallStartsWithCallSuccess(): void
     {
         $task = new StringyTask();
         $this->tester->assertSame(
@@ -108,7 +115,46 @@ class StringyTaskTest extends Unit
 
         $this->tester->assertSame(
             true,
-            $result['stringy.result']
+            $result['stringy.isUpperCase']
         );
+
+        $this->tester->assertSame(
+            'UPPER',
+            $result['stringy']
+        );
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionCode 1
+     * @expectedExceptionMessage Stringy has no callable method: 'notExists'
+     */
+    public function testMagicMethodCallStartsWithCallFail(): void
+    {
+        (new StringyTask())->callNotExists();
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionCode 1
+     * @expectedExceptionMessage Method 'fooBar' does not exists
+     */
+    public function testMagicMethodCallTotallyWrong(): void
+    {
+        (new StringyTask())->fooBar();
+    }
+
+    /**
+     * Non existing Stringy method added as queue item.
+     *
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionCode 1
+     * @expectedExceptionMessage Stringy has no callable method: 'notExists'
+     */
+    public function testRunMethodNotExists(): void
+    {
+        (new StringyTask())
+            ->addToQueue(['method' => 'notExists'])
+            ->run();
     }
 }
