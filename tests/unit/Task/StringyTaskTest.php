@@ -1,16 +1,21 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\Robo\Stringy\Tests\Unit\Task;
 
-use Codeception\Test\Unit;
-use Sweetchuck\Robo\Stringy\Task\StringyTask;
-
-class StringyTaskTest extends Unit
+class StringyTaskTest extends TaskTestBase
 {
+
     /**
-     * @var \Sweetchuck\Robo\Stringy\Test\UnitTester
+     * @inheritdoc
      */
-    protected $tester;
+    protected function initTask()
+    {
+        $this->task = $this->taskBuilder->taskStringy();
+
+        return $this;
+    }
 
     public function casesRun(): array
     {
@@ -84,10 +89,10 @@ class StringyTaskTest extends Unit
      */
     public function testRun(array $expected, array $options): void
     {
-        $task = new StringyTask();
-        $task->setOptions($options);
-
-        $result = $task->run();
+        $result = $this
+            ->task
+            ->setOptions($options)
+            ->run();
 
         if (array_key_exists('assets', $expected)) {
             foreach ($expected['assets'] as $assetName => $assetValue) {
@@ -102,21 +107,15 @@ class StringyTaskTest extends Unit
 
     public function testMagickMethodCallStartsWithCallSuccess(): void
     {
-        $task = new StringyTask();
-        $this->tester->assertSame(
-            false,
-            method_exists($task, 'callIsUpperCase')
-        );
+        $this->tester->assertFalse(method_exists($this->task, 'callIsUpperCase'));
 
-        $result = $task
+        $result = $this
+            ->task
             ->setString('UPPER')
             ->callIsUpperCase()
             ->run();
 
-        $this->tester->assertSame(
-            true,
-            $result['stringy.isUpperCase']
-        );
+        $this->tester->assertTrue($result['stringy.isUpperCase']);
 
         $this->tester->assertSame(
             'UPPER',
@@ -124,36 +123,29 @@ class StringyTaskTest extends Unit
         );
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionCode 1
-     * @expectedExceptionMessage Stringy has no callable method: 'notExists'
-     */
     public function testMagicMethodCallStartsWithCallFail(): void
     {
-        (new StringyTask())->callNotExists();
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage("Stringy has no callable method: 'notExists'");
+        $this->task->callNotExists();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionCode 1
-     * @expectedExceptionMessage Method 'fooBar' does not exists
-     */
     public function testMagicMethodCallTotallyWrong(): void
     {
-        (new StringyTask())->fooBar();
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage("Method 'fooBar' does not exists");
+        $this->task->fooBar();
     }
 
     /**
      * Non existing Stringy method added as queue item.
-     *
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionCode 1
-     * @expectedExceptionMessage Stringy has no callable method: 'notExists'
      */
     public function testRunMethodNotExists(): void
     {
-        (new StringyTask())
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage("Stringy has no callable method: 'notExists'");
+        $this
+            ->task
             ->addToQueue(['method' => 'notExists'])
             ->run();
     }
