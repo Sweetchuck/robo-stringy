@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sweetchuck\Robo\Stringy\Task;
 
+use BadMethodCallException;
 use Robo\Result;
 use Robo\Task\BaseTask as RoboBaseTask;
 use Robo\TaskInfo;
@@ -155,6 +158,11 @@ class StringyTask extends RoboBaseTask
 
     // endregion
 
+    public function __toString()
+    {
+        return $this->getTaskName();
+    }
+
     public function __call($name, $arguments)
     {
         if (preg_match('/^call[A-Z]/', $name)) {
@@ -167,7 +175,7 @@ class StringyTask extends RoboBaseTask
             return $this->call((string) $method, $arguments);
         }
 
-        throw new \BadMethodCallException("Method '$name' does not exists", 1);
+        throw new BadMethodCallException("Method '$name' does not exists", 1);
     }
 
     /**
@@ -357,7 +365,7 @@ class StringyTask extends RoboBaseTask
     protected function assertStringyMethod(Stringy $stringy, string $method): void
     {
         if (!is_callable([$stringy, $method])) {
-            throw  new \BadMethodCallException(
+            throw  new BadMethodCallException(
                 "Stringy has no callable method: '{$method}'",
                 1
             );
