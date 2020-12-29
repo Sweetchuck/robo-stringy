@@ -4,6 +4,10 @@ declare(strict_types = 1);
 
 namespace Sweetchuck\Robo\Stringy\Tests\Unit\Task;
 
+/**
+ * @covers \Sweetchuck\Robo\Stringy\Task\StringyTask
+ * @covers \Sweetchuck\Robo\Stringy\StringyTaskLoader
+ */
 class StringyTaskTest extends TaskTestBase
 {
 

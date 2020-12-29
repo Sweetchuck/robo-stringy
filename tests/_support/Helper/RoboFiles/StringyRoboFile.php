@@ -14,6 +14,14 @@ class StringyRoboFile extends Tasks
 {
     use StringyTaskLoader;
 
+    /**
+     * {@inheritdoc}
+     */
+    protected function output()
+    {
+        return $this->getContainer()->get('output');
+    }
+
     public function stringy(string $string): CollectionBuilder
     {
         return $this

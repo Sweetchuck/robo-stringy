@@ -59,7 +59,7 @@ abstract class TaskTestBase extends Unit
         DummyProcess::reset();
 
         $this->container = new LeagueContainer();
-        $application = new RoboApplication('Sweetchuck - Robo PHPUnit', '1.0.0');
+        $application = new RoboApplication('Sweetchuck - Robo Stringy', '1.0.0');
         $this->config = new Config();
         $input = null;
         $output = new DummyOutput([

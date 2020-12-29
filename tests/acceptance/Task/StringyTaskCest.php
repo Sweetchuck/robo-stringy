@@ -7,6 +7,10 @@ namespace Sweetchuck\Robo\Stringy\Tests\Acceptance\Task;
 use Sweetchuck\Robo\Stringy\Test\AcceptanceTester;
 use Sweetchuck\Robo\Stringy\Test\Helper\RoboFiles\StringyRoboFile;
 
+/**
+ * @covers \Sweetchuck\Robo\Stringy\Task\StringyTask
+ * @covers \Sweetchuck\Robo\Stringy\StringyTaskLoader
+ */
 class StringyTaskCest
 {
     public function runStringy(AcceptanceTester $tester)
