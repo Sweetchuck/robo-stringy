@@ -12,7 +12,8 @@ use Robo\Config\Config;
 use Robo\Robo;
 use Sweetchuck\Codeception\Module\RoboTaskRunner\DummyOutput;
 use Sweetchuck\Codeception\Module\RoboTaskRunner\DummyProcess;
-use Sweetchuck\Robo\Stringy\Test\Helper\Dummy\DummyTaskBuilder;
+use Sweetchuck\Robo\Stringy\Tests\Helper\Dummy\DummyTaskBuilder;
+use Sweetchuck\Robo\Stringy\Tests\UnitTester;
 use Symfony\Component\ErrorHandler\BufferingLogger;
 
 abstract class TaskTestBase extends Unit
@@ -23,30 +24,18 @@ abstract class TaskTestBase extends Unit
      */
     protected $container;
 
-    /**
-     * @var \Robo\Config\Config
-     */
-    protected $config;
+    protected Config $config;
+
+    protected CollectionBuilder $builder;
+
+    protected UnitTester $tester;
 
     /**
-     * @var \Robo\Collection\CollectionBuilder
-     */
-    protected $builder;
-
-    /**
-     * @var \Sweetchuck\Robo\Stringy\Test\UnitTester
-     */
-    protected $tester;
-
-    /**
-     * @var \Sweetchuck\Robo\Stringy\Task\StringyTask
+     * @var \Sweetchuck\Robo\Stringy\Task\StringyTask|\Robo\Collection\CollectionBuilder
      */
     protected $task;
 
-    /**
-     * @var \Sweetchuck\Robo\Stringy\Test\Helper\Dummy\DummyTaskBuilder
-     */
-    protected $taskBuilder;
+    protected DummyTaskBuilder $taskBuilder;
 
     /**
      * @inheritdoc

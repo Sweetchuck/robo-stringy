@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Sweetchuck\Robo\Stringy\Tests\Acceptance\Task;
 
-use Sweetchuck\Robo\Stringy\Test\AcceptanceTester;
-use Sweetchuck\Robo\Stringy\Test\Helper\RoboFiles\StringyRoboFile;
+use Sweetchuck\Robo\Stringy\Tests\AcceptanceTester;
+use Sweetchuck\Robo\Stringy\Tests\Helper\RoboFiles\StringyRoboFile;
 
 /**
  * @covers \Sweetchuck\Robo\Stringy\Task\StringyTask

@@ -95,28 +95,16 @@ use Stringy\Stringy;
  */
 class StringyTask extends RoboBaseTask
 {
-    /**
-     * @var string
-     */
-    protected $taskName = 'Stringy';
+    protected string $taskName = 'Stringy';
 
-    /**
-     * @var array
-     */
-    protected $queue = [];
+    protected array $queue = [];
 
-    /**
-     * @var array
-     */
-    protected $assets = [];
+    protected array $assets = [];
 
     // region Options
 
     // region assetNamePrefix.
-    /**
-     * @var string
-     */
-    protected $assetNamePrefix = '';
+    protected string $assetNamePrefix = '';
 
     public function getAssetNamePrefix(): string
     {
@@ -138,7 +126,7 @@ class StringyTask extends RoboBaseTask
     /**
      * @var string
      */
-    protected $string = '';
+    protected string $string = '';
 
     public function getString(): string
     {
@@ -367,7 +355,7 @@ class StringyTask extends RoboBaseTask
         if (!is_callable([$stringy, $method])) {
             throw  new BadMethodCallException(
                 "Stringy has no callable method: '{$method}'",
-                1
+                1,
             );
         }
     }

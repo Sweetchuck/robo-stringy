@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sweetchuck\Robo\Stringy\Test\Helper\Dummy;
+namespace Sweetchuck\Robo\Stringy\Tests\Helper\Dummy;
 
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerAwareTrait;
