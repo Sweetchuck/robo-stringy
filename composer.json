@@ -66,8 +66,7 @@
     "require": {
         "php": ">=7.4",
         "consolidation/robo": "^2.0",
-        "danielstjules/stringy": "^3.1",
-        "sweetchuck/utils": "1.x-dev"
+        "danielstjules/stringy": "^3.1"
     },
     "require-dev": {
         "ext-json": "*",
@@ -79,6 +78,7 @@
         "sweetchuck/git-hooks": "2.x-dev",
         "sweetchuck/robo-git": "1.x-dev",
         "sweetchuck/robo-phpcs": "1.x-dev",
+        "sweetchuck/utils": "1.x-dev",
         "symfony/error-handler": "^4.0 || ^5.0",
         "symfony/finder": "^4.0 || ^5.0",
         "symfony/yaml": "^4.0 || ^5.0",
