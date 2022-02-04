@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sweetchuck\Robo\Stringy\Test\Helper\RoboFiles;
+namespace Sweetchuck\Robo\Stringy\Tests\Helper\RoboFiles;
 
 use Robo\Collection\CollectionBuilder;
 use Robo\State\Data as RoboStateData;

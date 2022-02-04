@@ -12,7 +12,7 @@ class StringyTaskTest extends TaskTestBase
 {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function initTask()
     {

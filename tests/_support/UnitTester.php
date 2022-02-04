@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sweetchuck\Robo\Stringy\Test;
+namespace Sweetchuck\Robo\Stringy\Tests;
 
 /**
  * Inherited Methods

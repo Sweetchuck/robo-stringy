@@ -1,8 +1,7 @@
+# Robo Stringy
 
-# robo-stringy
-
-[![CircleCI](https://circleci.com/gh/Sweetchuck/robo-stringy.svg?style=svg)](https://circleci.com/gh/Sweetchuck/robo-stringy)
-[![codecov](https://codecov.io/gh/Sweetchuck/robo-stringy/branch/1.x/graph/badge.svg)](https://codecov.io/gh/Sweetchuck/robo-stringy)
+[![CircleCI](https://circleci.com/gh/Sweetchuck/robo-stringy/tree/1.x.svg?style=svg)](https://circleci.com/gh/Sweetchuck/robo-stringy/?branch=1.x)
+[![codecov](https://codecov.io/gh/Sweetchuck/robo-stringy/branch/1.x/graph/badge.svg?token=HSF16OGPyr)](https://app.codecov.io/gh/Sweetchuck/robo-stringy/branch/1.x)
 
 This Robo task is useful when you need to do string manipulation in a
 `\Robo\State\Data`.
@@ -57,4 +56,3 @@ Run `vendor/bin/robo stringy:simple FOO`
 Output:
 > <pre>Is upper case: true
 > Result: f_o_o_world</pre>
-
