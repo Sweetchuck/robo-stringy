@@ -23,7 +23,7 @@ executors:
         docker:
             -
                 name: 'main'
-                image: 'circleci/php:7.4'
+                image: 'cimg/php:7.4'
 
     php_plus1:
         resource_class: 'small'
@@ -34,7 +34,7 @@ executors:
         docker:
             -
                 name: 'main'
-                image: 'circleci/php:8.0'
+                image: 'cimg/php:8.0'
 
     php_plus2:
         resource_class: 'small'
