@@ -9,5 +9,7 @@
 
 /.git-hooks.local
 
+/phpcs.xml
+
 /robo.yml
 /RoboFileExample.php
